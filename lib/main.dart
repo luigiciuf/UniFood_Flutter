@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const MainApp());
 }
-//DIOSMEGMA
+//DIOSMEGMA dio bastardello
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
