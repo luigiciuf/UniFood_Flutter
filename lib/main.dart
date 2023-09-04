@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-void main() {
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MainApp());
 }
 //DIOSMEGMA dio bastardello aaaaasas
