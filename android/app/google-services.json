@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "875471046066",
+    "project_id": "unifoodflutter-d2d61",
+    "storage_bucket": "unifoodflutter-d2d61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875471046066:android:9f032dfb6ce3cf6a1f10ab",
+        "android_client_info": {
+          "package_name": "com.example.unifood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875471046066-foqtpaeji8qjet0q0gmvco3seoq7p1i1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfgsan0bdHHXYZ6967DeK_Dzzq8A-OEa8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875471046066-foqtpaeji8qjet0q0gmvco3seoq7p1i1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
