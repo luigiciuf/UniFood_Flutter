@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:ffi';
-
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:unifood/firebase_options.dart';
+import 'package:unifood/Registrazione.dart'; // Importa la schermata di registrazione.
+import 'package:unifood/Login.dart'; // Importa la schermata di login.
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +12,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MainApp());
+  runApp(MaterialApp(
+    home: Login(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -24,28 +25,39 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              printUserData(); // Chiama la funzione per leggere e stampare i dati dal database.
-            },
-            child: Text('Stampa Dati Utenti'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Al centro degli altri widget
+              ElevatedButton(
+                onPressed: () {
+                  // Naviga alla schermata di registrazione quando il pulsante "Registrati" viene premuto.
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Registrazione(),
+                    ),
+                  );
+                },
+                child: Text('Registrati'),
+              ),
+              SizedBox(height: 20), // Spazio tra i pulsanti
+              ElevatedButton(
+                onPressed: () {
+                  // Naviga alla schermata di login quando il pulsante "Login" viene premuto.
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Login(),
+                    ),
+                  );
+                },
+                child: Text('Login'),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-}
-
-
-
-void printUserData() {
-  final databaseReference = FirebaseDatabase.instance.reference();
-
-  databaseReference.child('Utenti/sdjsdjf/nome').once().then((DatabaseEvent event) {
-    if (event.snapshot != null) {
-      // Assicurati che lo snapshot non sia nullo prima di accedere a `snapshot.value`.
-      print('Valore del campo "nome": ${event.snapshot!.value}');
-    }
-  });
-
 }
