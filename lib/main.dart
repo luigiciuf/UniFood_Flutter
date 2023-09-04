@@ -1,16 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main(){
 
   runApp(const MainApp());
 }
-//DIOSMEGMA dio bastardello aaaaasas
-//mfnsjfdff
-///sdsdssdsdsd
-//ssss
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
