@@ -21,93 +21,130 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Inserisci l\'email';
-                  }
-                  // Aggiungi ulteriori controlli sull'email se necessario.
-                  return null;
-                },
-                onSaved: (value) {
-                  _email = value;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Inserisci la password';
-                  }
-                  // Aggiungi ulteriori controlli sulla password se necessario.
-                  return null;
-                },
-                onSaved: (value) {
-                  _password = value;
-                },
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // I dati del modulo sono validi, quindi li salviamo.
-                    _formKey.currentState!.save();
+      body: Stack(
+        children: [
+          // Immagine di sfondo, sostituisci con il tuo asset
+          Image.asset('images/login_v2.png', fit: BoxFit.cover, height: double.infinity, width: double.infinity),
 
-                    // Esegui la verifica dell'accesso nel database.
-                    _verifyLogin(_email!, _password!);
-                  }
-                },
-                child: Text('Accedi'),
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      hintStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(Icons.email, color: Colors.black),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Inserisci l\'email';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _email = value;
+                    },
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(Icons.lock, color: Colors.black),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Inserisci la password';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _password = value;
+                    },
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 10.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        _verifyLogin(_email!, _password!);
+                      }
+                    },
+                    child: Text('Accedi'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.red,
+                      onPrimary: Colors.white,
+                      minimumSize: Size(300, 60),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        side: BorderSide(color: Colors.black, width: 2.0),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Non sei ancora registrato?', style: TextStyle(color: Colors.black)),
+                      GestureDetector(
+                        onTap: () {
+                          // Aggiungi la logica per aprire la schermata di registrazione
+                        },
+                        child: Text(' Registrati ora', style: TextStyle(color: Colors.red)),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   void _verifyLogin(String email, String password) {
-    // Effettua la verifica dell'accesso nel database.
-    // Puoi implementare la tua logica per verificare se l'email e la password corrispondono
-    // a un utente nel database Firebase Realtime.
-
-    // Esempio di verifica: Cerca l'utente nel database.
     _databaseReference.child('Utenti').once().then((DatabaseEvent event) {
       final dynamic data = event.snapshot.value;
+      bool accessoConsentito = false;
+
       if (data is Map<dynamic, dynamic>) {
-        bool accessoConsentito = false;
         data.forEach((key, value) {
           final Map<dynamic, dynamic>? utente = value;
           if (utente != null &&
               utente['email'] == email &&
               utente['password'] == password) {
-            // Accesso consentito, esegui le azioni desiderate.
-            print('Accesso consentito');
             accessoConsentito = true;
-            // Puoi aggiungere qui la navigazione a una schermata successiva.
           }
         });
 
         if (accessoConsentito) {
-          // Accesso consentito, esegui le azioni desiderate.
-          print('Accesso consentito');
-
-          // Puoi aggiungere qui la navigazione alla schermata principale.
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => MainApp(), // Sostituisci con il nome corretto della schermata principale.
+              builder: (context) => MainApp(),
             ),
           );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Email o password errate')),
+          );
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Errore durante l\'accesso al database')),
+        );
       }
     });
   }
