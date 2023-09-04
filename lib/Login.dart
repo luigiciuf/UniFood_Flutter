@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:unifood/main.dart';
+import 'package:unifood/Registrazione.dart';
 //prova
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _LoginState extends State<Login> {
                       hintStyle: TextStyle(color: Colors.black),
                       prefixIcon: Icon(Icons.email, color: Colors.black),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                     validator: (value) {
@@ -57,7 +58,7 @@ class _LoginState extends State<Login> {
                       hintStyle: TextStyle(color: Colors.black),
                       prefixIcon: Icon(Icons.lock, color: Colors.black),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(color: Colors.black),
                       ),
                     ),
                     validator: (value) {
@@ -79,7 +80,7 @@ class _LoginState extends State<Login> {
                         _verifyLogin(_email!, _password!);
                       }
                     },
-                    child: Text('Accedi'),
+                    child: Text('ACCEDI'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.red,
                       onPrimary: Colors.white,
@@ -97,7 +98,7 @@ class _LoginState extends State<Login> {
                       Text('Non sei ancora registrato?', style: TextStyle(color: Colors.black)),
                       GestureDetector(
                         onTap: () {
-                          // Aggiungi la logica per aprire la schermata di registrazione
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Registrazione()));
                         },
                         child: Text(' Registrati ora', style: TextStyle(color: Colors.red)),
                       ),

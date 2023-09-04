@@ -21,9 +21,7 @@ class _RegistrazioneState extends State<Registrazione> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Registrazione'),
-      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
