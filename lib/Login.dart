@@ -18,20 +18,18 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
+
       body: Stack(
         children: [
           // Immagine di sfondo, sostituisci con il tuo asset
-          Image.asset('images/login_v2.png', fit: BoxFit.cover, height: double.infinity, width: double.infinity),
+          Image.asset('assets/images/login_v2.png' , fit: BoxFit.cover, height: double.infinity, width: double.infinity),
 
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
