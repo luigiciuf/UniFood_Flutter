@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:unifood/main.dart';
+import 'package:unifood/models/Prodotto.dart';
 
 /**
  * Classe che mi gestisce le chiamate al database e le varie funzioni
@@ -80,5 +81,29 @@ class DatabaseManager {
         SnackBar(content: Text('Errore durante l\'aggiunta dell\'utente')),
       );
     }
+  }
+
+  Future<List<Prodotto>> getProdotti() async {
+    List<Prodotto> prodotti = [];
+
+    try {
+      DatabaseEvent event = await _databaseReference.child('Prodotti').once();
+      print(event.snapshot.value);
+      final dynamic data = event.snapshot.value;
+
+      if (data != null && data is Map) {
+        data.forEach((key, prodottoData) {
+          prodotti.add(Prodotto(
+            nome: prodottoData['nome'] ?? '',
+            imgUri: prodottoData['imgUri'] ?? '',
+            prezzo: prodottoData['prezzo'] ?? '0,00',  // Se vuoi convertirlo in double, dovrai fare ulteriori modifiche
+          ));
+        });
+      }
+    } catch (error) {
+      print('Error fetching products: $error');
+    }
+
+    return prodotti;
   }
 }
