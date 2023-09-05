@@ -15,34 +15,48 @@ class _LoginState extends State<Login> {
   final _databaseReference = FirebaseDatabase.instance.reference();
   String? _email;
   String? _password;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Evita che la tastiera ridimensioni il contenuto
-      body: Stack(
-        children: [
-          // Sfondo
-          // Sfondo
-          Image.asset('assets/images/login_v2.png', fit: BoxFit.cover, height: double.infinity, width: double.infinity),
-
-          // Struttura della colonna per posizionare il contenuto in basso
-          Column(
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
             children: [
-              Expanded(child: Container()), // Espande e spinge il contenuto sottostante verso il basso
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: _buildFormContent(),
+              Image.asset(
+                'assets/images/login_v2.png',
+                fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: _buildFormContent(),
+                      ),
+                    ),
                   ),
-                ),
-              )
+                  Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 10.0),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
