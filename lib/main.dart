@@ -5,8 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:unifood/firebase_options.dart';
 import 'package:unifood/Registrazione.dart'; // Importa la schermata di registrazione.
 import 'package:unifood/Login.dart'; // Importa la schermata di login.
-//boh
-
+//aaaaa
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
