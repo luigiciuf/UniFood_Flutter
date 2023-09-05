@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:unifood/DatabaseManager.dart';
 import 'package:unifood/main.dart';
 import 'package:unifood/Registrazione.dart';
 
@@ -13,9 +14,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _databaseReference = FirebaseDatabase.instance.reference();
+  late DatabaseManager _databaseManager;
   String? _email;
   String? _password;
   @override
+  void initState() {
+    super.initState();
+    _databaseManager = DatabaseManager(context); // Istanziazione nel costruttore
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -105,10 +111,10 @@ class _LoginState extends State<Login> {
       ),
       SizedBox(height: 10.0),
       ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
-            _verifyLogin(_email!, _password!);
+            await _databaseManager.verifyLogin(_email!, _password!);
           }
         },
         child: Text('ACCEDI'),
@@ -139,38 +145,4 @@ class _LoginState extends State<Login> {
     ];
   }
 
-  void _verifyLogin(String email, String password) {
-    _databaseReference.child('Utenti').once().then((DatabaseEvent event) {
-      final dynamic data = event.snapshot.value;
-      bool accessoConsentito = false;
-
-      if (data is Map<dynamic, dynamic>) {
-        data.forEach((key, value) {
-          final Map<dynamic, dynamic>? utente = value;
-          if (utente != null &&
-              utente['email'] == email &&
-              utente['password'] == password) {
-            accessoConsentito = true;
-          }
-        });
-
-        if (accessoConsentito) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MainApp(),
-            ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Email o password errate')),
-          );
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Errore durante l\'accesso al database')),
-        );
-      }
-    });
-  }
 }

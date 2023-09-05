@@ -174,33 +174,33 @@ class _RegistrazioneState extends State<Registrazione> {
                     ),
                     SizedBox(height: 20.0),
                     ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
 
-                          final userUid = _databaseReference.child('Utenti').push().key;
-                          _databaseReference.child('Utenti/$userUid').set({
-                            'nome': _nome,
-                            'cognome': _cognome,
-                            'email': _email,
-                            'password': _password,
-                            'nuova_password': _nuovaPassword,
-                            'saldo': _saldo,
-                          });
+                            final userUid = _databaseReference.child('Utenti').push().key;
+                            _databaseReference.child('Utenti/$userUid').set({
+                              'nome': _nome,
+                              'cognome': _cognome,
+                              'email': _email,
+                              'password': _password,
+                              'nuova_password': _nuovaPassword,
+                              'saldo': _saldo,
+                            });
 
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text('Registrati'),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                        onPrimary: Colors.white,
-                        minimumSize: Size(300, 60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                          side: BorderSide(color: Colors.black, width: 2.0),
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text('Registrati'),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.red,
+                            onPrimary: Colors.white,
+                            minimumSize: Size(300, 60),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(color: Colors.black, width: 2.0),
+                            )
                         )
-                      )
                     ),
                     SizedBox(height: 10.0),
                     Row(
@@ -212,7 +212,7 @@ class _RegistrazioneState extends State<Registrazione> {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
                           },
                           child: Text(' Accedi', style: TextStyle(color: Colors.red)),
-                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 24.0),
