@@ -77,19 +77,29 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
 
-                  ListView.builder(
-                    shrinkWrap: true, // Questo permette al ListView di funzionare all'interno di un SingleChildScrollView
-                    physics: NeverScrollableScrollPhysics(), // Questo previene lo scrolling indipendente all'interno del ListView
-                    itemCount: categorie.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Image.asset(categorie[index].imagePath),
-                        title: Text(categorie[index].nome),
-                        onTap: () {
-                          // Azione quando si fa clic su una categoria
-                        },
-                      );
-                    },
+                  Container(
+                    height: 120, // Imposta l'altezza desiderata per il ListView orizzontale
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(categorie.length, (index) {
+                        return GestureDetector(
+                          onTap: () {
+                            // Azione quando si fa clic su una categoria
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              children: [
+                                Image.asset(categorie[index].imagePath, width: 100, height: 100),
+                                SizedBox(height: 4),
+                                Text(categorie[index].nome),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
                   )
                 ],
               ),
