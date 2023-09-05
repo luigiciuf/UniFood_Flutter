@@ -2,12 +2,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:unifood/main.dart';
 
+/**
+ * Classe che mi gestisce le chiamate al database e le varie funzioni
+ */
 class DatabaseManager {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference();
   final BuildContext context;
 
   DatabaseManager(this.context);
-
+// verifica Login
   Future<void> verifyLogin(String email, String password) async {
     try {
       DatabaseEvent event = await _databaseReference.child('Utenti').once();
@@ -44,6 +47,37 @@ class DatabaseManager {
       print('Error verifying login: $error');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Errore durante l\'accesso al database')),
+      );
+    }
+  }
+
+// funzione che mi aggiunge utente al database
+  Future<void> addUser({
+    required String nome,
+    required String cognome,
+    required String email,
+    required String password,
+    required String nuovaPassword,
+    required double saldo,
+  }) async {
+    try {
+      final userUid = _databaseReference.child('Utenti').push().key;
+      await _databaseReference.child('Utenti/$userUid').set({
+        'nome': nome,
+        'cognome': cognome,
+        'email': email,
+        'password': password,
+        'nuova_password': nuovaPassword,
+        'saldo': saldo,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Utente aggiunto con successo')),
+      );
+    } catch (error) {
+      print('Error adding user: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore durante l\'aggiunta dell\'utente')),
       );
     }
   }
