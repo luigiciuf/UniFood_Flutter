@@ -4,11 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:unifood/firebase_options.dart';
 import 'package:unifood/Registrazione.dart'; // Importa la schermata di registrazione.
-import 'package:unifood/Login.dart'; // Importa la schermata di login.
-//aaaa
+import 'package:unifood/Login.dart';
+import 'package:unifood/models/Categorie.dart'; // Importa la schermata di login.
 
+List<Categorie> categorie = [
+  Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png'),
+  Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png'),
+  Categorie(nome: 'Insalate', imagePath: 'assets/images/cat_3.png'),
+  Categorie(nome: 'Bibite', imagePath: 'assets/images/cat_4.png'),
+  Categorie(nome: 'Dolci', imagePath: 'assets/images/cat_5.png'),
 
-//asasasasa
+  // Aggiungi altre categorie...
+
+];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -68,7 +76,21 @@ class MyHomePage extends StatelessWidget {
                       // Add your search_background image as a decoration
                     ),
                   ),
-                  // Add more Widgets...
+
+                  ListView.builder(
+                    shrinkWrap: true, // Questo permette al ListView di funzionare all'interno di un SingleChildScrollView
+                    physics: NeverScrollableScrollPhysics(), // Questo previene lo scrolling indipendente all'interno del ListView
+                    itemCount: categorie.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Image.asset(categorie[index].imagePath),
+                        title: Text(categorie[index].nome),
+                        onTap: () {
+                          // Azione quando si fa clic su una categoria
+                        },
+                      );
+                    },
+                  )
                 ],
               ),
             ),
