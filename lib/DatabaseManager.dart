@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:unifood/main.dart';
+import 'package:unifood/UserView.dart';
 
 class DatabaseManager {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference();
