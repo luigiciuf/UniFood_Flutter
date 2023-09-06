@@ -6,6 +6,7 @@ import 'package:unifood/View/Login.dart';
 import 'package:unifood/firebase_options.dart';
 import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
+
 List<Categorie> categorie = [
   Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png', color: Color(0xFFfef4e5) ),
   Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png', color: Color(0xFFf5e5fe) ),
@@ -17,7 +18,6 @@ List<Categorie> categorie = [
 List<Prodotto> listaProdotti = [];
 String? selectedCategory; //
 String nomeUtente = '';// Aggiungi questa variabile
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -379,7 +379,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.checklist, color: Color(0xFFC51F33)),
                   onPressed: () {},
                 ),
-                Text("Lista ordini"), // Scritta sotto l'icona
+                SizedBox(height: 0.1),
+                Text(
+                  "Lista ordini",
+                  style: TextStyle(color: Colors.grey),  // Cambia il colore qui
+                ),
               ],
             ),
             SizedBox.shrink(), // Riduce al minimo la dimensione dello SizedBox
@@ -390,12 +394,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.person, color: Color(0xFFC51F33)),
                   onPressed: () {},
                 ),
-                Text("Profilo"), // Scritta sotto l'icona
+                SizedBox(height: 2),  // Riduci questo valore
+                Text(
+                  "Profilo",
+                  style: TextStyle(color: Colors.grey),  // Cambia il colore qui
+                ),
               ],
             ),
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFC51F33),
         child: Icon(Icons.shopping_cart),
