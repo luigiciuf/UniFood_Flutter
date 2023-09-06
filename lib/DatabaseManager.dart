@@ -106,4 +106,20 @@ class DatabaseManager {
 
     return prodotti;
   }
+  // get primo del giorno database
+  Future<String> getPrimoDelGiorno() async {
+    try {
+      DatabaseEvent event = await _databaseReference.child('PrimoDelGiorno').once();
+      final dynamic data = event.snapshot.value;
+
+      if (data != null) {
+        return data.toString();
+      } else {
+        return ''; // Ritorna una stringa vuota se i dati non sono disponibili
+      }
+    } catch (error) {
+      print('Error fetching Primo del Giorno: $error');
+      return ''; // Ritorna una stringa vuota in caso di errore
+    }
+  }
 }

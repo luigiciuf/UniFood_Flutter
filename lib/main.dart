@@ -179,14 +179,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 SizedBox(height: 5.0),
-                                Text(
-                                  'Amatriciana',
-                                  style: TextStyle(
-                                    fontSize: 20.0, // Puoi regolare la dimensione del testo come preferisci
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                FutureBuilder<String>(
+                                  future: DatabaseManager(context).getPrimoDelGiorno(),
+                                  builder: (context, snapshot) {
+                                      // Visualizza il risultato ottenuto dal database
+                                      final primoDelGiorno = snapshot.data ?? 'Nessuna informazione disponibile';
+                                      return Text(
+                                        '$primoDelGiorno',
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      );
+                                    }
                                 ),
+
                               ],
                             ),
                           ),
@@ -217,44 +225,44 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: List.generate(categorie.length, (index) {
                             return Padding(
                               padding: const EdgeInsets.all(5.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                filterProdottiByCategory(categorie[index].nome);
-                                // Azione quando si fa clic su una categoria
-                              },
-                              child: Container(
-                                width: 100, // Imposta una larghezza fissa
-                                height: 100, // Imposta un'altezza fissa
-                                margin: EdgeInsets.only(left: 5),
-                                decoration: BoxDecoration(
-                                  color: categorie[index].color,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      offset: Offset(0, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center, // Centra i contenuti verticalmente
-                                  children: [
-                                    Image.asset(
-                                      categorie[index].imagePath,
-                                      width: 40, // Riduci la larghezza dell'immagine
-                                      height: 40, // Riduci l'altezza dell'immagine
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 4),
-                                      child: Text(
-                                        categorie[index].nome,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
+                              child: GestureDetector(
+                                onTap: () {
+                                  filterProdottiByCategory(categorie[index].nome);
+                                  // Azione quando si fa clic su una categoria
+                                },
+                                child: Container(
+                                  width: 100, // Imposta una larghezza fissa
+                                  height: 100, // Imposta un'altezza fissa
+                                  margin: EdgeInsets.only(left: 5),
+                                  decoration: BoxDecoration(
+                                    color: categorie[index].color,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        offset: Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center, // Centra i contenuti verticalmente
+                                    children: [
+                                      Image.asset(
+                                        categorie[index].imagePath,
+                                        width: 40, // Riduci la larghezza dell'immagine
+                                        height: 40, // Riduci l'altezza dell'immagine
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 4),
+                                        child: Text(
+                                          categorie[index].nome,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                       ),
+                                      ),
                                     ],
                                   ),
                                 ),
