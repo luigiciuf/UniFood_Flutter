@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:unifood/Controller/DatabaseManager.dart';
+import 'package:unifood/View/Login.dart';
 import 'package:unifood/firebase_options.dart';
-import 'package:unifood/Login.dart';
 import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
-import 'package:unifood/DatabaseManager.dart';
-
 List<Categorie> categorie = [
   Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png', color: Color(0xFFfef4e5) ),
   Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png', color: Color(0xFFf5e5fe) ),

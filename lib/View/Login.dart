@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:unifood/DatabaseManager.dart';
-import 'package:unifood/Registrazione.dart';
+import 'package:unifood/Controller/DatabaseManager.dart';
+import 'package:unifood/View/Registrazione.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
