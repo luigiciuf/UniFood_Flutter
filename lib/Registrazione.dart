@@ -13,7 +13,6 @@ class Registrazione extends StatefulWidget {
 class _RegistrazioneState extends State<Registrazione> {
   late DatabaseManager _databaseManager;
   final _formKey = GlobalKey<FormState>();
-  final _databaseReference = FirebaseDatabase.instance.reference();
   String? _nome;
   String? _cognome;
   String? _email;

@@ -1,20 +1,18 @@
 import 'dart:async';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:unifood/firebase_options.dart';
-import 'package:unifood/Registrazione.dart';
 import 'package:unifood/Login.dart';
 import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
 import 'package:unifood/DatabaseManager.dart';
 
 List<Categorie> categorie = [
-  Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png'),
-  Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png'),
-  Categorie(nome: 'Insalate', imagePath: 'assets/images/cat_3.png'),
-  Categorie(nome: 'Bibite', imagePath: 'assets/images/cat_4.png'),
-  Categorie(nome: 'Dolci', imagePath: 'assets/images/cat_5.png'),
+  Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png', color: Color(0xFFfef4e5) ),
+  Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png', color: Color(0xFFf5e5fe) ),
+  Categorie(nome: 'Insalate', imagePath: 'assets/images/cat_3.png', color: Color(0xFFe5f1fe) ),
+  Categorie(nome: 'Bibite', imagePath: 'assets/images/cat_4.png', color: Color(0xFFebfee5) ),
+  Categorie(nome: 'Dolci', imagePath: 'assets/images/cat_5.png', color: Color(0xFFf9e4e4) ),
 ];
 
 List<Prodotto> listaProdotti = [];
@@ -109,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Benvenuto!,$nomeUtente',
+                    'Benvenuto!$nomeUtente',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -161,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -175,36 +173,55 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
                       Container(
-                        height: 120,
+                        height: 100,
                         child: ListView(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           children: List.generate(categorie.length, (index) {
-                            return GestureDetector(
+                            return Padding(
+                              padding: const EdgeInsets.all(5.0),
+                            child: GestureDetector(
                               onTap: () {
                                 filterProdottiByCategory(categorie[index].nome);
+                                // Azione quando si fa clic su una categoria
                               },
                               child: Container(
+                                width: 100, // Imposta una larghezza fissa
+                                height: 100, // Imposta un'altezza fissa
                                 margin: EdgeInsets.only(left: 5),
                                 decoration: BoxDecoration(
-                                  color: Colors.orangeAccent,
+                                  color: categorie[index].color,
                                   borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      offset: Offset(0, 1),
+                                    ),
+                                  ],
                                 ),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center, // Centra i contenuti verticalmente
                                   children: [
-                                    Image.asset(categorie[index].imagePath, width: 100, height: 100),
+                                    Image.asset(
+                                      categorie[index].imagePath,
+                                      width: 40, // Riduci la larghezza dell'immagine
+                                      height: 40, // Riduci l'altezza dell'immagine
+                                    ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 0),
+                                      padding: EdgeInsets.symmetric(vertical: 4),
                                       child: Text(
                                         categorie[index].nome,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
+                                       ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -213,7 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 20),
                   Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Text(
@@ -224,10 +241,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   Container(
-                    margin: EdgeInsets.only(left: 10),
-                    height: 200,
+                    margin: EdgeInsets.only(left: 5),
+                    height: 220,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: listaProdotti.length,
@@ -282,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                                   decoration: BoxDecoration(
-                                    color: Colors.red, // Background rosso
+                                    color: Color(0xFFC51F33), // Background rosso
                                     borderRadius: BorderRadius.circular(15), // Angoli arrotondati
                                   ),
                                   child: Text(
@@ -308,18 +325,31 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.grey[200],
         shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconButton(
-              icon: Icon(Icons.checklist),
-              onPressed: () {},
+            Column(
+              mainAxisSize: MainAxisSize.min, // Riduce al minimo la dimensione della colonna
+              children: [
+                IconButton(
+                  icon: Icon(Icons.checklist, color: Color(0xFFC51F33)),
+                  onPressed: () {},
+                ),
+                Text("Lista ordini"), // Scritta sotto l'icona
+              ],
             ),
-            SizedBox(),
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {},
+            SizedBox.shrink(), // Riduce al minimo la dimensione dello SizedBox
+            Column(
+              mainAxisSize: MainAxisSize.min, // Riduce al minimo la dimensione della colonna
+              children: [
+                IconButton(
+                  icon: Icon(Icons.person, color: Color(0xFFC51F33)),
+                  onPressed: () {},
+                ),
+                Text("Profilo"), // Scritta sotto l'icona
+              ],
             ),
           ],
         ),
