@@ -157,8 +157,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: EdgeInsets.only(left: 0.1), // Aggiungi un po' di spazio a sinistra
                             child: Image.asset(
                               'assets/images/spaghetti2.png',
-                              width: 150, // Puoi regolare la larghezza come preferisci
-                              height: 150, // Puoi regolare l'altezza come preferisci
+                              width: 130, // Puoi regolare la larghezza come preferisci
+                              height: 130, // Puoi regolare l'altezza come preferisci
                               fit: BoxFit.cover,
                             ),
                           ),

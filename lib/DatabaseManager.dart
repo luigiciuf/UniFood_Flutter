@@ -88,7 +88,6 @@ class DatabaseManager {
 
     try {
       DatabaseEvent event = await _databaseReference.child('Prodotti').once();
-      print(event.snapshot.value);
       final dynamic data = event.snapshot.value;
 
       if (data != null && data is Map) {
