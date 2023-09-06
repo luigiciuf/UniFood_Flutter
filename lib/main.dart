@@ -19,6 +19,7 @@ List<Categorie> categorie = [
 
 List<Prodotto> listaProdotti = [];
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -90,11 +91,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ciao',
+                    'Benvenuto!',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red,
+                      color: Color(0xFFC51F33),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 130,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.orangeAccent,
+                      color: Color(0xFFE28F99),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -158,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(height: 30),
                       Container(
-                        height: 130,
+                        height: 120,
                         child: ListView(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -215,14 +216,68 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Image.network(listaProdotti[index].imgUri, width: 100, height: 100),
-                              SizedBox(height: 4),
-                              Text(listaProdotti[index].nome),
-                              SizedBox(height: 4),
-                              Text('€${listaProdotti[index].prezzo}'),
-                            ],
+                          child: Container(
+                            width: 150.0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                // Nome del prodotto
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 4),
+                                  child: Text(
+                                    listaProdotti[index].nome,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                // Immagine del prodotto
+                                Image.network(
+                                  listaProdotti[index].imgUri,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                                SizedBox(height: 4),
+                                // Prezzo del prodotto
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 4),
+                                  child: Text(
+                                    '€${listaProdotti[index].prezzo}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                // "Button" Dettagli
+                                SizedBox(height: 4),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red, // Background rosso
+                                    borderRadius: BorderRadius.circular(15), // Angoli arrotondati
+                                  ),
+                                  child: Text(
+                                    'Dettagli', // Scritta "Dettagli"
+                                    style: TextStyle(
+                                      color: Colors.white, // Scritta bianca
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,// Dimensione del testo
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -252,7 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
+        backgroundColor: Color(0xFFC51F33),
         child: Icon(Icons.shopping_cart),
         onPressed: () {},
       ),

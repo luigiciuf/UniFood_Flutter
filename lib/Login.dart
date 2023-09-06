@@ -119,7 +119,7 @@ class _LoginState extends State<Login> {
         },
         child: Text('ACCEDI'),
         style: ElevatedButton.styleFrom(
-          primary: Colors.red,
+          primary: Color(0xFFC51F33),
           onPrimary: Colors.white,
           minimumSize: Size(300, 60),
           shape: RoundedRectangleBorder(
@@ -137,7 +137,7 @@ class _LoginState extends State<Login> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => Registrazione()));
             },
-            child: Text(' Registrati ora', style: TextStyle(color: Colors.red)),
+            child: Text(' Registrati ora', style: TextStyle(color: Color(0xFFC51F33))),
           ),
         ],
       ),
