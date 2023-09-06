@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-//aaa
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,37 +141,40 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                Container(
-                  width: double.infinity,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE28F99),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Stack(
-                    children: [
-                      // Questo è il widget per l'immagine. Puoi sostituire 'assets/your_image.png' con il percorso della tua immagine.
-                      Positioned.fill(
-                        child: Opacity(
-                          opacity: 0.3, // Puoi regolare l'opacità come preferisci
-                          child: Image.asset(
-                            'assets/your_image.png',
-                            fit: BoxFit.cover, // Questo fa sì che l'immagine copra tutto lo spazio disponibile
+                  Container(
+                    width: double.infinity,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE28F99),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Stack(
+                      children: [
+                        // Questo è il widget per l'immagine. Puoi sostituire 'assets/your_image.png' con il percorso della tua immagine.
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 1.0), // Aggiungi un po' di spazio a sinistra
+                            child: Image.asset(
+                              'assets/images/spaghetti2.png',
+                              width: 150, // Puoi regolare la larghezza come preferisci
+                              height: 150, // Puoi regolare l'altezza come preferisci
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: Text(
-                          'Primo Del Giorno:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        Center(
+                          child: Text(
+                            'Primo Del Giorno:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
                   SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
