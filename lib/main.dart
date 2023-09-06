@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-
+//aaa
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,24 +141,37 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    width: double.infinity,
-                    height: 130,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFE28F99),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Primo Del Giorno:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                Container(
+                  width: double.infinity,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE28F99),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      // Questo è il widget per l'immagine. Puoi sostituire 'assets/your_image.png' con il percorso della tua immagine.
+                      Positioned.fill(
+                        child: Opacity(
+                          opacity: 0.3, // Puoi regolare l'opacità come preferisci
+                          child: Image.asset(
+                            'assets/your_image.png',
+                            fit: BoxFit.cover, // Questo fa sì che l'immagine copra tutto lo spazio disponibile
+                          ),
                         ),
                       ),
-                    ),
+                      Center(
+                        child: Text(
+                          'Primo Del Giorno:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
                   SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
