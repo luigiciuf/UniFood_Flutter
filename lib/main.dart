@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Align(
                           alignment: Alignment.topRight,
                           child: Padding(
-                            padding: EdgeInsets.only(right: 40.0, top: 30.0),
+                            padding: EdgeInsets.only(right: 25.0, top: 30.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
