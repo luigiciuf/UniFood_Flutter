@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 1.0), // Aggiungi un po' di spazio a sinistra
+                            padding: EdgeInsets.only(left: 0.1), // Aggiungi un po' di spazio a sinistra
                             child: Image.asset(
                               'assets/images/spaghetti2.png',
                               width: 150, // Puoi regolare la larghezza come preferisci
@@ -163,12 +163,31 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        Center(
-                          child: Text(
-                            'Primo Del Giorno:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 40.0, top: 30.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Primo Del Giorno:',
+                                  style: TextStyle(
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 5.0),
+                                Text(
+                                  'Amatriciana',
+                                  style: TextStyle(
+                                    fontSize: 20.0, // Puoi regolare la dimensione del testo come preferisci
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
