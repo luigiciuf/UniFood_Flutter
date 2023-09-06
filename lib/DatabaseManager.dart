@@ -96,7 +96,8 @@ class DatabaseManager {
           prodotti.add(Prodotto(
             nome: prodottoData['nome'] ?? '',
             imgUri: prodottoData['imgUri'] ?? '',
-            prezzo: prodottoData['prezzo'] ?? '0,00',  // Se vuoi convertirlo in double, dovrai fare ulteriori modifiche
+            prezzo: prodottoData['prezzo'] ?? '0,00',
+            categoria: prodottoData['categoria'] ?? '',
           ));
         });
       }

@@ -18,6 +18,8 @@ List<Categorie> categorie = [
 ];
 
 List<Prodotto> listaProdotti = [];
+String? selectedCategory; //
+String nomeUtente = '';// Aggiungi questa variabile
 
 
 Future<void> main() async {
@@ -55,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     fetchProdotti();
   }
-
+// qui vengono inzializzate tutte le funzioni che verranno utilizzate
   void fetchProdotti() async {
     final List<Prodotto> prodotti = await DatabaseManager(context).getProdotti();
     setState(() {
@@ -77,6 +79,22 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+  void filterProdottiByCategory(String category) {
+    setState(() {
+      if (selectedCategory == category) {
+        // Se la categoria selezionata è la stessa di quella già selezionata,
+        // deseleziona la categoria (mostra tutti i prodotti)
+        selectedCategory = '';
+        fetchProdotti(); // Mostra tutti i prodotti
+      } else {
+        selectedCategory = category;
+        List<Prodotto> filteredProdotti = listaProdotti
+            .where((prodotto) => prodotto.categoria.toLowerCase() == category.toLowerCase())
+            .toList();
+        listaProdotti = filteredProdotti;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Benvenuto!',
+                    'Benvenuto!,$nomeUtente',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -166,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: List.generate(categorie.length, (index) {
                             return GestureDetector(
                               onTap: () {
-                                // Azione quando si fa clic su una categoria
+                                filterProdottiByCategory(categorie[index].nome);
                               },
                               child: Container(
                                 margin: EdgeInsets.only(left: 5),
