@@ -31,6 +31,7 @@ class DatabaseManager {
           if (userData['email'] == email && userData['password'] == password) {
             accessoConsentito = true;
             currentUser = User(
+              id: userData['id']??'',
               nome: userData['nome'] ?? '',
               cognome: userData['cognome'] ?? '',
               email: userData['email'] ?? '',
@@ -90,6 +91,7 @@ class DatabaseManager {
     try {
       final userUid = _databaseReference.child('Utenti').push().key;
       await _databaseReference.child('Utenti/$userUid').set({
+        'id': userUid,
         'nome': nome,
         'cognome': cognome,
         'email': email,
@@ -157,11 +159,11 @@ class DatabaseManager {
             'nome': item.nome,
             'prezzo': item.prezzo,
             'imgUri': item.imgUri,
-          };
+                    };
         }).toList(),
       };
 
-      await _databaseReference.child('ordini').push().set(orderData);
+      await _databaseReference.child('Ordini').push().set(orderData);
 
       // Dopo aver creato l'ordine, puoi svuotare il carrello
       cartItems.clear();
