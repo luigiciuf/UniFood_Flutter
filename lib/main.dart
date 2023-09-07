@@ -99,6 +99,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       carrello.add(prodotto);
     });
+    // Mostra un messaggio "Aggiunto al carrello"
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Prodotto aggiunto al carrello'),
+        duration: Duration(seconds: 2), // Imposta la durata del messaggio
+      ),
+    );
   }
 //Costruzione widget schermata principale
   @override
