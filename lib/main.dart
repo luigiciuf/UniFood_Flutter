@@ -6,6 +6,7 @@ import 'package:unifood/View/Login.dart';
 import 'package:unifood/firebase_options.dart';
 import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
+import 'package:unifood/View/Carrello.dart';
 
 // Lista di categorie predefinite
 List<Categorie> categorie = [
@@ -90,6 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
             .toList();
         listaProdotti = filteredProdotti;
       }
+    });
+  }
+  List<Prodotto> carrello = [];
+
+  void aggiungiAlCarrello(Prodotto prodotto) {
+    setState(() {
+      carrello.add(prodotto);
     });
   }
 //Costruzione widget schermata principale
@@ -337,22 +345,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 // "Button" Dettagli
-                                SizedBox(height: 4),
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFC51F33), // Background rosso
-                                    borderRadius: BorderRadius.circular(15), // Angoli arrotondati
-                                  ),
-                                  child: Text(
-                                    'Dettagli', // Scritta "Dettagli"
-                                    style: TextStyle(
-                                      color: Colors.white, // Scritta bianca
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,// Dimensione del testo
+                                SizedBox(height: 10),
+                                GestureDetector(
+                                  onTap: () {
+                                    aggiungiAlCarrello(listaProdotti[index]);
+                                  },
+                                  child: Container(
+                                    width: 80,
+                                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFC51F33), // Background rosso
+                                      borderRadius: BorderRadius.circular(10), // Angoli arrotondati
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Aggiungi', // Scritta "Dettagli"
+                                        style: TextStyle(
+                                          color: Colors.white, // Scritta bianca
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold, // Dimensione del testo
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),
@@ -408,7 +424,11 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFC51F33),
         child: Icon(Icons.shopping_cart),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute( builder: (context) => Carrello(carrello: carrello)));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

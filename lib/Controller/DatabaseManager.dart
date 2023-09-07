@@ -2,12 +2,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:unifood/main.dart';
 import 'package:unifood/models/Prodotto.dart';
+import 'package:unifood/models/User.dart';
 
 /**
  * Questa classe gestisce le operazioni di accesso e gestione del database Firebase.
  */
 
 class DatabaseManager {
+  User? currentUser;
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference();
   final BuildContext context;
 
@@ -22,14 +24,35 @@ class DatabaseManager {
       if (data != null && data is Map) {
         // Itera tra i dati degli utenti per trovare una corrispondenza di email e password
         bool accessoConsentito = false;
+
+        User? currentUser; // Dichiarare una variabile per memorizzare l'utente corrente
+
         data.forEach((key, userData) {
           if (userData['email'] == email && userData['password'] == password) {
             accessoConsentito = true;
+            currentUser = User(
+              nome: userData['nome'] ?? '',
+              cognome: userData['cognome'] ?? '',
+              email: userData['email'] ?? '',
+              password: userData['password'] ?? '',
+              nuovaPassword: userData['nuova_password'] ?? '',
+              saldo: userData['saldo'] != null ? double.parse(userData['saldo'].toString()) : 0.0,
+            );
           }
         });
 
-        if (accessoConsentito) {
-          // Login riuscito
+        if (accessoConsentito && currentUser != null) {
+          // Memorizza l'utente corrente
+          this.currentUser = currentUser;
+          // Stampare tutte le informazioni dell'utente
+          /*print('Login riuscito per l\'utente:');
+          print('Nome: ${currentUser?.nome}');
+          print('Cognome: ${currentUser?.cognome}');
+          print('Email: ${currentUser?.email}');
+          print('Password: ${currentUser?.password}');
+          print('Nuova Password: ${currentUser?.nuovaPassword}');
+          print('Saldo: ${currentUser?.saldo}');*/
+          // Login riuscito, naviga alla schermata principale
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -53,6 +76,7 @@ class DatabaseManager {
       );
     }
   }
+
 
 // Funzione che aggiunge un utente al database
   Future<void> addUser({
