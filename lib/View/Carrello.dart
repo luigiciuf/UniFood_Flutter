@@ -41,11 +41,11 @@ class _CarrelloState extends State<Carrello> {
         children: <Widget>[
           // Title
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(50.0),
             child: Text(
               'Il mio carrello',
               style: TextStyle(
-                color: Colors.red,
+                color: Color(0xFFC51F33),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -132,7 +132,7 @@ class _CarrelloState extends State<Carrello> {
                         Text(
                           '€',
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Color(0xFFC51F33),
                             fontSize: 27,
                             fontWeight: FontWeight.bold,
                           ),
@@ -162,9 +162,9 @@ class _CarrelloState extends State<Carrello> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.red,
+                      backgroundColor: Color(0xFFC51F33),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(40),
                       ),
                       padding: EdgeInsets.symmetric(vertical: 10),
                     ),
@@ -193,7 +193,7 @@ class _CarrelloState extends State<Carrello> {
                   child: Icon(
                     Icons.delete,
                     size: 50,
-                    color: Colors.red,
+                    color: Color(0xFFC51F33),
                   ),
                 ),
               ],

@@ -395,7 +395,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.checklist, color: Color(0xFFC51F33)),
                   onPressed: () {},
                 ),
-                SizedBox(height: 0.1),
+                SizedBox(height: 1),
                 Text(
                   "Lista ordini",
                   style: TextStyle(color: Colors.grey),
@@ -410,7 +410,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.person, color: Color(0xFFC51F33)),
                   onPressed: () {},
                 ),
-                SizedBox(height: 2),
+                SizedBox(height: 1),
                 Text(
                   "Profilo",
                   style: TextStyle(color: Colors.grey),
