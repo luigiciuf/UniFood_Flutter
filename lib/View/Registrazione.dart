@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/View/Login.dart';
-
+/**
+ * Definizione della classe Registrazione utilizzata per permettere la registrazione dell'utente
+ */
 class Registrazione extends StatefulWidget {
   const Registrazione({Key? key}) : super(key: key);
 
   @override
   _RegistrazioneState createState() => _RegistrazioneState();
 }
-
+// Definizione della classe di stato _RegistrazioneState
 class _RegistrazioneState extends State<Registrazione> {
   late DatabaseManager _databaseManager;
   final _formKey = GlobalKey<FormState>();
@@ -22,7 +24,7 @@ class _RegistrazioneState extends State<Registrazione> {
   @override
   void initState() {
     super.initState();
-    _databaseManager = DatabaseManager(context); // Istanziazione nel costruttore
+    _databaseManager = DatabaseManager(context); // Istanziazione della classe DatabaseManager nel costruttore
   }
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +47,7 @@ class _RegistrazioneState extends State<Registrazione> {
                         SizedBox(height: 20.0),
                         TextFormField(
                           decoration: InputDecoration(
+                            // Campo per il nome
                             labelText: 'Nome',
                             hintText: 'Nome',
                             hintStyle: TextStyle(color: Colors.black),

@@ -4,21 +4,23 @@ import 'package:unifood/main.dart';
 import 'package:unifood/models/Prodotto.dart';
 
 /**
- * Classe che mi gestisce le chiamate al database e le varie funzioni
+ * Questa classe gestisce le operazioni di accesso e gestione del database Firebase.
  */
+
 class DatabaseManager {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference();
   final BuildContext context;
 
   DatabaseManager(this.context);
-// verifica Login
+
+  // Funzione per verificare il login dell'utente
   Future<void> verifyLogin(String email, String password) async {
     try {
       DatabaseEvent event = await _databaseReference.child('Utenti').once();
       final dynamic data = event.snapshot.value;
 
       if (data != null && data is Map) {
-        // Iterate through user data to find a matching email and password
+        // Itera tra i dati degli utenti per trovare una corrispondenza di email e password
         bool accessoConsentito = false;
         data.forEach((key, userData) {
           if (userData['email'] == email && userData['password'] == password) {
@@ -27,7 +29,7 @@ class DatabaseManager {
         });
 
         if (accessoConsentito) {
-          // Login successful
+          // Login riuscito
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -52,7 +54,7 @@ class DatabaseManager {
     }
   }
 
-// funzione che mi aggiunge utente al database
+// Funzione che aggiunge un utente al database
   Future<void> addUser({
     required String nome,
     required String cognome,
@@ -82,7 +84,7 @@ class DatabaseManager {
       );
     }
   }
-
+  // Funzione per ottenere la lista di prodotti dal database
   Future<List<Prodotto>> getProdotti() async {
     List<Prodotto> prodotti = [];
 
@@ -106,7 +108,7 @@ class DatabaseManager {
 
     return prodotti;
   }
-  // get primo del giorno database
+  // Funzione per ottenere il "Primo del Giorno" dal database
   Future<String> getPrimoDelGiorno() async {
     try {
       DatabaseEvent event = await _databaseReference.child('PrimoDelGiorno').once();

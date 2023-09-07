@@ -7,6 +7,7 @@ import 'package:unifood/firebase_options.dart';
 import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
 
+// Lista di categorie predefinite
 List<Categorie> categorie = [
   Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png', color: Color(0xFFfef4e5) ),
   Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png', color: Color(0xFFf5e5fe) ),
@@ -14,22 +15,20 @@ List<Categorie> categorie = [
   Categorie(nome: 'Bibite', imagePath: 'assets/images/cat_4.png', color: Color(0xFFebfee5) ),
   Categorie(nome: 'Dolci', imagePath: 'assets/images/cat_5.png', color: Color(0xFFf9e4e4) ),
 ];
-
 List<Prodotto> listaProdotti = [];
-String? selectedCategory; //
-String nomeUtente = '';// Aggiungi questa variabile
-
+String? selectedCategory; // Categoria selezionata
+// Funzione principale
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform, // Opzioni di configurazione di Firebase
   );
 
   runApp(MaterialApp(
     home: Login(),
   ));
 }
-
+// Classe principale dell'app
 class MainApp extends StatelessWidget {
   const MainApp({Key? key});
 
@@ -40,12 +39,12 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
+// Classe per la schermata principale
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
+// Classe di stato per la schermata principale
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
 
@@ -54,14 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     fetchProdotti();
   }
-// qui vengono inzializzate tutte le funzioni che verranno utilizzate
+// Funzione per il recupero dei prodotti dal database
   void fetchProdotti() async {
     final List<Prodotto> prodotti = await DatabaseManager(context).getProdotti();
     setState(() {
       listaProdotti = prodotti;
     });
   }
-
+  // Funzione per filtrare i prodotti in base a una query di ricerca
   void filterProdotti(String query) {
     if (query.isEmpty) {
       // Se la barra di ricerca è vuota, mostra tutti i prodotti
@@ -76,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
+  // Funzione per filtrare i prodotti in base alla categoria selezionata
   void filterProdottiByCategory(String category) {
     setState(() {
       if (selectedCategory == category) {
@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
-
+//Costruzione widget schermata principale
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Benvenuto!$nomeUtente',
+                    'Benvenuto!',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 10),
                   TextField(
                     controller: searchController,
-                    onChanged: filterProdotti, // Assicurati che filterProdotti sia la funzione che filtra i prodotti
+                    onChanged: filterProdotti,
                     decoration: InputDecoration(
                       hintText: 'Cerca...',
                       prefixIcon: Icon(Icons.search),
@@ -149,15 +149,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Stack(
                       children: [
-                        // Questo è il widget per l'immagine. Puoi sostituire 'assets/your_image.png' con il percorso della tua immagine.
+                        // Questo è il widget per l'immagine.
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 0.1), // Aggiungi un po' di spazio a sinistra
+                            padding: EdgeInsets.only(left: 0.1),
                             child: Image.asset(
                               'assets/images/spaghetti2.png',
-                              width: 130, // Puoi regolare la larghezza come preferisci
-                              height: 130, // Puoi regolare l'altezza come preferisci
+                              width: 130,
+                              height: 130,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -230,8 +230,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   // Azione quando si fa clic su una categoria
                                 },
                                 child: Container(
-                                  width: 100, // Imposta una larghezza fissa
-                                  height: 100, // Imposta un'altezza fissa
+                                  width: 100,
+                                  height: 100,
                                   margin: EdgeInsets.only(left: 5),
                                   decoration: BoxDecoration(
                                     color: categorie[index].color,
@@ -382,7 +382,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(height: 0.1),
                 Text(
                   "Lista ordini",
-                  style: TextStyle(color: Colors.grey),  // Cambia il colore qui
+                  style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
@@ -394,10 +394,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   icon: Icon(Icons.person, color: Color(0xFFC51F33)),
                   onPressed: () {},
                 ),
-                SizedBox(height: 2),  // Riduci questo valore
+                SizedBox(height: 2),
                 Text(
                   "Profilo",
-                  style: TextStyle(color: Colors.grey),  // Cambia il colore qui
+                  style: TextStyle(color: Colors.grey),
                 ),
               ],
             ),
