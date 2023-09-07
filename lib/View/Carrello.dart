@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/models/Prodotto.dart';
 
 class Carrello extends StatefulWidget {
   final List<Prodotto> carrello;
-
-  Carrello({required this.carrello});
+  final DatabaseManager databaseManager;
+  Carrello({required this.carrello, required this.databaseManager});
 
   @override
   _CarrelloState createState() => _CarrelloState();
@@ -168,8 +169,21 @@ class _CarrelloState extends State<Carrello> {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 10),
                     ),
-                    onPressed: () {
-                      // Action for the "Check out" button
+                    onPressed: () async {
+                      if (widget.carrello.isNotEmpty) {
+                        await widget.databaseManager.createOrder(widget.carrello); // Chiama la funzione createOrder
+                        setState(() {
+                          widget.carrello.clear(); // Svuota il carrello
+                          subtotale = 0.0; // Resetta il subtotale
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Ordine creato con successo')),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Il carrello è vuoto')),
+                        );
+                      }
                     },
                     child: Text(
                       'Check out',

@@ -148,4 +148,29 @@ class DatabaseManager {
       return ''; // Ritorna una stringa vuota in caso di errore
     }
   }
+
+  Future<void> createOrder(List<Prodotto> cartItems) async {
+    try {
+      final orderData = {
+        'items': cartItems.map((item) {
+          return {
+            'nome': item.nome,
+            'prezzo': item.prezzo,
+            'imgUri': item.imgUri,
+          };
+        }).toList(),
+      };
+
+      await _databaseReference.child('ordini').push().set(orderData);
+
+      // Dopo aver creato l'ordine, puoi svuotare il carrello
+      cartItems.clear();
+    } catch (error) {
+      print('Error creating order: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Errore durante la creazione dell\'ordine')),
+      );
+    }
+  }
+
 }
