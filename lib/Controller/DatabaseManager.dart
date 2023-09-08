@@ -159,7 +159,7 @@ class DatabaseManager {
             'nome': item.nome,
             'prezzo': item.prezzo,
             'imgUri': item.imgUri,
-                    };
+          };
         }).toList(),
       };
 
