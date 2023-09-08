@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/View/Login.dart';
 import 'package:unifood/firebase_options.dart';
@@ -52,7 +53,6 @@ class MyHomePage extends StatefulWidget {
 /// Classe di stato per la schermata principale
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
-
   @override
   void initState() {
     super.initState();

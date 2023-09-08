@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unifood/main.dart';
 import 'package:unifood/models/Prodotto.dart';
 import 'package:unifood/models/User.dart';
@@ -30,9 +33,9 @@ class DatabaseManager {
         // Itera tra i dati degli utenti per trovare una corrispondenza di email e password
         bool accessoConsentito = false;
 
-        User? currentUser; // Dichiarare una variabile per memorizzare l'utente corrente
+        //User? currentUser; // Dichiarare una variabile per memorizzare l'utente corrente
 
-        data.forEach((key, userData) {
+        data.forEach((key, userData) async {
           if (userData['email'] == email && userData['password'] == password) {
             accessoConsentito = true;
             currentUser = User(
@@ -44,6 +47,8 @@ class DatabaseManager {
               nuovaPassword: userData['nuova_password'] ?? '',
               saldo: userData['saldo'] != null ? double.parse(userData['saldo'].toString()) : 0.0,
             );
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('userid', currentUser!.id);
           }
         });
 
@@ -152,9 +157,15 @@ class DatabaseManager {
   ///  Dopo aver inserito l'ordine con successo, svuota il carrello.
   ///  In caso di errore, mostra una SnackBar con un messaggio di errore.
   ///  * @param cartItems Articoli nel carrello dell'utente da ordinare.
+  ///  Recupera le informazioni dello userid che ha creato l'ordine
   Future<void> createOrder(List<Prodotto> cartItems) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final userid = prefs.getString('userid') ?? '';
+      // Genera un ID dell'ordine casuale da 0 a 1000
+      final orderId = Random().nextInt(1001).toString();
       final orderData = {
+        'userid': userid,
         'items': cartItems.map((item) {
           return {
             'nome': item.nome,
@@ -163,8 +174,8 @@ class DatabaseManager {
           };
         }).toList(),
       };
-      await _databaseReference.child('Ordini').push().set(orderData);
-      // Dopo aver creato l'ordine,svuota il carrello
+      await _databaseReference.child('Ordini').child(orderId).set(orderData);
+      // Dopo aver creato l'ordine, svuota il carrello
       cartItems.clear();
     } catch (error) {
       print('Error creating order: $error');

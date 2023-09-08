@@ -9,6 +9,7 @@ environment:
 dependencies:
   firebase_core: ^2.15.1
   firebase_database: ^10.2.5
+  shared_preferences: ^2.2.1
   flutter:
     sdk: flutter
 
