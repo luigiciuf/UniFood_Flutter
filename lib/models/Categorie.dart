@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/**
- * La classe Categorie rappresenta una categoria con un nome, un percorso dell'immagine e un colore associato.
- */
+
+/// La classe Categorie rappresenta una categoria con un nome, un percorso dell'immagine e un colore associato.
 class Categorie {
   final String nome;
   final String imagePath;

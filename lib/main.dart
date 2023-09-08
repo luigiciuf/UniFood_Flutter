@@ -8,7 +8,7 @@ import 'package:unifood/models/Categorie.dart';
 import 'package:unifood/models/Prodotto.dart';
 import 'package:unifood/View/Carrello.dart';
 
-// Lista di categorie predefinite
+/// Lista di categorie predefinite
 List<Categorie> categorie = [
   Categorie(nome: 'Pizza', imagePath: 'assets/images/cat_1.png', color: Color(0xFFfef4e5) ),
   Categorie(nome: 'Panini', imagePath: 'assets/images/cat_2.png', color: Color(0xFFf5e5fe) ),
@@ -18,7 +18,8 @@ List<Categorie> categorie = [
 ];
 List<Prodotto> listaProdotti = [];
 String? selectedCategory; // Categoria selezionata
-// Funzione principale
+
+/// Funzione principale
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -29,7 +30,8 @@ Future<void> main() async {
     home: Login(),
   ));
 }
-// Classe principale dell'app
+
+/// Classe principale dell'app
 class MainApp extends StatelessWidget {
   const MainApp({Key? key});
 
@@ -40,12 +42,14 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-// Classe per la schermata principale
+
+/// Classe per la schermata principale
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-// Classe di stato per la schermata principale
+
+/// Classe di stato per la schermata principale
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
 
@@ -54,14 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     fetchProdotti();
   }
-// Funzione per il recupero dei prodotti dal database
+/// Funzione per il recupero dei prodotti dal database
   void fetchProdotti() async {
     final List<Prodotto> prodotti = await DatabaseManager(context).getProdotti();
     setState(() {
       listaProdotti = prodotti;
     });
   }
-  // Funzione per filtrare i prodotti in base a una query di ricerca
+
+  /// Funzione per filtrare i prodotti in base a una query di ricerca
   void filterProdotti(String query) {
     if (query.isEmpty) {
       // Se la barra di ricerca è vuota, mostra tutti i prodotti
@@ -76,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-  // Funzione per filtrare i prodotti in base alla categoria selezionata
+
+  /// Funzione per filtrare i prodotti in base alla categoria selezionata
   void filterProdottiByCategory(String category) {
     setState(() {
       if (selectedCategory == category) {
@@ -95,6 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   List<Prodotto> carrello = [];
 
+  /// Aggiunge il prodotto fornito al carrello dell'utente e mostra una notifica di conferma.
+  /// @param prodotto L'articolo da aggiungere al carrello.
   void aggiungiAlCarrello(Prodotto prodotto) {
     setState(() {
       carrello.add(prodotto);
@@ -107,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-//Costruzione widget schermata principale
+
+/// Costruzione widget schermata principale
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,7 +173,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Stack(
                       children: [
-                        // Questo è il widget per l'immagine.
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
@@ -208,7 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       );
                                     }
                                 ),
-
                               ],
                             ),
                           ),
@@ -265,8 +272,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     children: [
                                       Image.asset(
                                         categorie[index].imagePath,
-                                        width: 40, // Riduci la larghezza dell'immagine
-                                        height: 40, // Riduci l'altezza dell'immagine
+                                        width: 40,
+                                        height: 40,
                                       ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(vertical: 4),
@@ -361,16 +368,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: 80,
                                     padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFC51F33), // Background rosso
-                                      borderRadius: BorderRadius.circular(10), // Angoli arrotondati
+                                      color: Color(0xFFC51F33), // Background
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
                                       child: Text(
                                         'Aggiungi', // Scritta "Dettagli"
                                         style: TextStyle(
-                                          color: Colors.white, // Scritta bianca
+                                          color: Colors.white,
                                           fontSize: 12,
-                                          fontWeight: FontWeight.bold, // Dimensione del testo
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),

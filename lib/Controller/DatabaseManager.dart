@@ -4,9 +4,9 @@ import 'package:unifood/main.dart';
 import 'package:unifood/models/Prodotto.dart';
 import 'package:unifood/models/User.dart';
 
-/**
- * Questa classe gestisce le operazioni di accesso e gestione del database Firebase.
- */
+
+ /// Questa classe gestisce le operazioni di lettura e scrittura del database Firebase.
+
 
 class DatabaseManager {
   User? currentUser;
@@ -15,7 +15,12 @@ class DatabaseManager {
 
   DatabaseManager(this.context);
 
-  // Funzione per verificare il login dell'utente
+
+  /// Verifica le credenziali di login dell'utente confrontandole con quelle nel database.
+  /// Se l'utente viene trovato e le credenziali corrispondono, naviga alla schermata principale.
+  /// @param email L'email fornita dall'utente per il login.
+  /// @param password La password fornita dall'utente per il login.
+
   Future<void> verifyLogin(String email, String password) async {
     try {
       DatabaseEvent event = await _databaseReference.child('Utenti').once();
@@ -45,14 +50,6 @@ class DatabaseManager {
         if (accessoConsentito && currentUser != null) {
           // Memorizza l'utente corrente
           this.currentUser = currentUser;
-          // Stampare tutte le informazioni dell'utente
-          /*print('Login riuscito per l\'utente:');
-          print('Nome: ${currentUser?.nome}');
-          print('Cognome: ${currentUser?.cognome}');
-          print('Email: ${currentUser?.email}');
-          print('Password: ${currentUser?.password}');
-          print('Nuova Password: ${currentUser?.nuovaPassword}');
-          print('Saldo: ${currentUser?.saldo}');*/
           // Login riuscito, naviga alla schermata principale
           Navigator.pushReplacement(
             context,
@@ -79,7 +76,7 @@ class DatabaseManager {
   }
 
 
-// Funzione che aggiunge un utente al database
+/// Funzione che aggiunge un utente al database, utilizzata nella registrazione.
   Future<void> addUser({
     required String nome,
     required String cognome,
@@ -110,7 +107,8 @@ class DatabaseManager {
       );
     }
   }
-  // Funzione per ottenere la lista di prodotti dal database
+
+  /// Funzione per ottenere la lista di prodotti dal database
   Future<List<Prodotto>> getProdotti() async {
     List<Prodotto> prodotti = [];
 
@@ -134,7 +132,7 @@ class DatabaseManager {
 
     return prodotti;
   }
-  // Funzione per ottenere il "Primo del Giorno" dal database
+  /// Funzione per ottenere il "Primo del Giorno" dal database
   Future<String> getPrimoDelGiorno() async {
     try {
       DatabaseEvent event = await _databaseReference.child('PrimoDelGiorno').once();
@@ -150,7 +148,10 @@ class DatabaseManager {
       return ''; // Ritorna una stringa vuota in caso di errore
     }
   }
-
+  ///  Crea un ordine nel database Firebase a partire dalla lista di prodotti fornita.
+  ///  Dopo aver inserito l'ordine con successo, svuota il carrello.
+  ///  In caso di errore, mostra una SnackBar con un messaggio di errore.
+  ///  * @param cartItems Articoli nel carrello dell'utente da ordinare.
   Future<void> createOrder(List<Prodotto> cartItems) async {
     try {
       final orderData = {
@@ -162,10 +163,8 @@ class DatabaseManager {
           };
         }).toList(),
       };
-
       await _databaseReference.child('Ordini').push().set(orderData);
-
-      // Dopo aver creato l'ordine, puoi svuotare il carrello
+      // Dopo aver creato l'ordine,svuota il carrello
       cartItems.clear();
     } catch (error) {
       print('Error creating order: $error');

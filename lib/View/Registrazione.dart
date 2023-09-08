@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/View/Login.dart';
-/**
- * Definizione della classe Registrazione utilizzata per permettere la registrazione dell'utente
- */
+
+/// Definizione della classe Registrazione utilizzata per permettere la registrazione dell'utente.
+
 class Registrazione extends StatefulWidget {
   const Registrazione({Key? key}) : super(key: key);
 
   @override
   _RegistrazioneState createState() => _RegistrazioneState();
 }
-// Definizione della classe di stato _RegistrazioneState
+/// Definizione della classe di stato _RegistrazioneState
 class _RegistrazioneState extends State<Registrazione> {
   late DatabaseManager _databaseManager;
   final _formKey = GlobalKey<FormState>();

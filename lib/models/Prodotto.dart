@@ -1,6 +1,5 @@
-/**
- * La classe Prodotto rappresenta un prodotto con un nome, un'immagine, una categoria e un prezzo.
- */
+
+///La classe Prodotto rappresenta un prodotto con un nome, un'immagine, una categoria e un prezzo.
 
 class Prodotto {
   final String nome;

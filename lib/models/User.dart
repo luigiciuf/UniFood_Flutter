@@ -1,3 +1,6 @@
+
+///La classe User rappresenta un utente con un id, nome , cognome, email, password , nuova password e saldo.
+
 class User {
   final String id;
   final String nome;

@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/models/Prodotto.dart';
 
+
+/// Classe utilizzata per gestire la visualizzazione del carrello
+/// Mostra una lista di prodotti aggiunti al carrello, fornisce una funzionalità per
+/// effettuare l'ordine e mostra il subtotale, la commissione e il totale dell'ordine.
+/// Questa classe utilizza `DatabaseManager` per gestire le operazioni sul database
+/// relative all'ordine.
+/// @param carrello Una lista dei prodotti che l'utente ha aggiunto al carrello.
+/// @param databaseManager Un'istanza del gestore del database per eseguire operazioni sul database.
+
 class Carrello extends StatefulWidget {
   final List<Prodotto> carrello;
   final DatabaseManager databaseManager;
@@ -12,21 +21,20 @@ class Carrello extends StatefulWidget {
 }
 
 class _CarrelloState extends State<Carrello> {
-  double subtotale = 0.0; // Initialize subtotale with 0
-  final double commisione = 2.0; // Fixed commisione value
+  double subtotale = 0.0; // Inizializza il subtotale a 0
+  final double commisione = 2.0; // Fissa il valore della commissione a 2
 
   @override
   void initState() {
     super.initState();
-    // Calculate the initial subtotale when the widget is created
+    // Calcola il valore del subtotale quando il widget viene creato
     updateSubtotale();
   }
 
-  // Method to calculate the subtotale
+  /// Metodo per calcolare il subtotale
   void updateSubtotale() {
     double newSubtotale = 0.0;
     for (Prodotto prodotto in widget.carrello) {
-      // Replace the comma with a period and then parse it to a double
       double prezzo = double.parse(prodotto.prezzo.replaceAll(',', '.'));
       newSubtotale += prezzo;
     }
@@ -40,7 +48,6 @@ class _CarrelloState extends State<Carrello> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          // Title
           Padding(
             padding: EdgeInsets.all(50.0),
             child: Text(
@@ -53,7 +60,7 @@ class _CarrelloState extends State<Carrello> {
             ),
           ),
 
-          // List of cart items
+          // Lista di elementi del carrello
           Expanded(
             child: ListView.builder(
               itemCount: widget.carrello.length,
@@ -68,7 +75,7 @@ class _CarrelloState extends State<Carrello> {
             ),
           ),
 
-          // Subtotale, Commisione, and Totale
+          // Subtotale, Commissione, Totale
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
@@ -99,7 +106,7 @@ class _CarrelloState extends State<Carrello> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Commisione:',
+                      'Commissione:',
                       style: TextStyle(
                         color: Color(0xFF373b54),
                         fontSize: 18,
@@ -154,7 +161,7 @@ class _CarrelloState extends State<Carrello> {
             ),
           ),
 
-          // Checkout button and trash icon button
+          // Bottone checkout e cestino
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Row(
@@ -198,9 +205,8 @@ class _CarrelloState extends State<Carrello> {
                 SizedBox(width: 20),
                 GestureDetector(
                   onTap: () {
-                    // Action for the trash icon button
                     setState(() {
-                      widget.carrello.clear(); // Clear the cart items
+                      widget.carrello.clear(); // Svuota il carrello
                       subtotale = 0.0; // Reset subtotale
                     });
                   },

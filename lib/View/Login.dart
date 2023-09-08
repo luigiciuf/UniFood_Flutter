@@ -3,9 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/View/Registrazione.dart';
 
-/**
- * Definizione della classe Login utilizzata per permettere l'accesso all'utente
- */
+
+  /// Definizione della classe Login utilizzata per permettere l'accesso all'utente
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
-// Definizione della classe di stato _LoginState
+  /// Definizione della classe di stato _LoginState
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _databaseReference = FirebaseDatabase.instance.reference();
@@ -25,7 +25,8 @@ class _LoginState extends State<Login> {
     super.initState();
     _databaseManager = DatabaseManager(context); // Istanziazione nel costruttore
   }
-  // Widget per costruire l'interfaccia utente del login
+
+  /// Widget per costruire l'interfaccia utente del login
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -70,7 +71,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-  // Funzione per costruire il contenuto del modulo di login
+  /// Funzione per costruire il contenuto del modulo di login
   List<Widget> _buildFormContent() {
     return [
       TextFormField(
@@ -145,7 +146,7 @@ class _LoginState extends State<Login> {
           ),
         ],
       ),
-      SizedBox(height: 24.0),  // Aggiungi questo per dare spazio in basso
+      SizedBox(height: 24.0),
     ];
   }
 
