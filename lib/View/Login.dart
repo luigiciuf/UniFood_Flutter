@@ -16,7 +16,6 @@ class Login extends StatefulWidget {
   /// Definizione della classe di stato _LoginState
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  final _databaseReference = FirebaseDatabase.instance.reference();
   late DatabaseManager _databaseManager;
   String? _email;
   String? _password;
@@ -71,6 +70,7 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
   /// Funzione per costruire il contenuto del modulo di login
   List<Widget> _buildFormContent() {
     return [

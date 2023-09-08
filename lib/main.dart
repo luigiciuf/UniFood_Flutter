@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unifood/Controller/DatabaseManager.dart';
 import 'package:unifood/View/Login.dart';
 import 'package:unifood/firebase_options.dart';
@@ -69,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Funzione per filtrare i prodotti in base a una query di ricerca
   void filterProdotti(String query) {
     if (query.isEmpty) {
+
       // Se la barra di ricerca è vuota, mostra tutti i prodotti
       fetchProdotti();
     } else {
@@ -373,7 +373,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        'Aggiungi', // Scritta "Dettagli"
+                                        'Aggiungi',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -418,7 +418,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox.shrink(), // Riduce al minimo la dimensione dello SizedBox
             Column(
-              mainAxisSize: MainAxisSize.min, // Riduce al minimo la dimensione della colonna
+              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   icon: Icon(Icons.person, color: Color(0xFFC51F33)),

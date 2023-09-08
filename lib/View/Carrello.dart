@@ -8,6 +8,7 @@ import 'package:unifood/models/Prodotto.dart';
 /// effettuare l'ordine e mostra il subtotale, la commissione e il totale dell'ordine.
 /// Questa classe utilizza `DatabaseManager` per gestire le operazioni sul database
 /// relative all'ordine.
+///
 /// @param carrello Una lista dei prodotti che l'utente ha aggiunto al carrello.
 /// @param databaseManager Un'istanza del gestore del database per eseguire operazioni sul database.
 

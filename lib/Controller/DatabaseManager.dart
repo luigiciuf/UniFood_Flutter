@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +17,6 @@ class DatabaseManager {
 
   DatabaseManager(this.context);
 
-//
   /// Verifica le credenziali di login dell'utente confrontandole con quelle nel database.
   /// Se l'utente viene trovato e le credenziali corrispondono, naviga alla schermata principale.
   /// @param email L'email fornita dall'utente per il login.
@@ -30,6 +28,7 @@ class DatabaseManager {
       final dynamic data = event.snapshot.value;
 
       if (data != null && data is Map) {
+
         // Itera tra i dati degli utenti per trovare una corrispondenza di email e password
         bool accessoConsentito = false;
         data.forEach((key, userData) async {
@@ -135,6 +134,7 @@ class DatabaseManager {
 
     return prodotti;
   }
+
   /// Funzione per ottenere il "Primo del Giorno" dal database
   Future<String> getPrimoDelGiorno() async {
     try {
@@ -151,6 +151,7 @@ class DatabaseManager {
       return ''; // Ritorna una stringa vuota in caso di errore
     }
   }
+
   ///  Crea un ordine nel database Firebase a partire dalla lista di prodotti fornita.
   ///  Dopo aver inserito l'ordine con successo, svuota il carrello.
   ///  In caso di errore, mostra una SnackBar con un messaggio di errore.
@@ -173,6 +174,7 @@ class DatabaseManager {
         }).toList(),
       };
       await _databaseReference.child('Ordini').child(orderId).set(orderData);
+
       // Dopo aver creato l'ordine, svuota il carrello
       cartItems.clear();
     } catch (error) {
