@@ -32,9 +32,6 @@ class DatabaseManager {
       if (data != null && data is Map) {
         // Itera tra i dati degli utenti per trovare una corrispondenza di email e password
         bool accessoConsentito = false;
-
-        //User? currentUser; // Dichiarare una variabile per memorizzare l'utente corrente
-
         data.forEach((key, userData) async {
           if (userData['email'] == email && userData['password'] == password) {
             accessoConsentito = true;
