@@ -47,6 +47,7 @@ class DatabaseManager {
               nuovaPassword: userData['nuova_password'] ?? '',
               saldo: userData['saldo'] != null ? double.parse(userData['saldo'].toString()) : 0.0,
             );
+            // Memorizza il valore dell'ID dell'utente corrente sotto la chiave 'userid' nelle SharedPreferences.
             final prefs = await SharedPreferences.getInstance();
             await prefs.setString('userid', currentUser!.id);
           }
