@@ -18,7 +18,7 @@ class DatabaseManager {
 
   DatabaseManager(this.context);
 
-
+//
   /// Verifica le credenziali di login dell'utente confrontandole con quelle nel database.
   /// Se l'utente viene trovato e le credenziali corrispondono, naviga alla schermata principale.
   /// @param email L'email fornita dall'utente per il login.
