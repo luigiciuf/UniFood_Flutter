@@ -6,22 +6,32 @@ import 'package:unifood/View/Registrazione.dart';
 
   /// Definizione della classe Login utilizzata per permettere l'accesso all'utente
 
-
+// widget mutabile ovvero che puo cambiare dopo che è stato inizializzato
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
+// Overriding il metodo di creazione dello stato della classe Login per ritornare un'istanza di _LoginState.
   @override
   _LoginState createState() => _LoginState();
 }
   /// Definizione della classe di stato _LoginState
 class _LoginState extends State<Login> {
+  // Una chiave globale utilizzata per identificare univocamente il Form widget
+  // e per validare le informazioni inserite dall'utente.
   final _formKey = GlobalKey<FormState>();
+  // inizializzazione della variabile di tipo database
   late DatabaseManager _databaseManager;
+  // Dichiarazione di variabili per immagazzinare temporaneamente
+  // l'email e la password inserite dall'utente.
   String? _email;
   String? _password;
+  // Metodo che viene chiamato quando questo stato viene creato.
+  // Viene utilizzato per inizializzazioni che devono avvenire una sola volta.
   @override
   void initState() {
     super.initState();
+    // Inizializzazione del gestore del database. Si suppone che il DatabaseManager
+    // abbia bisogno del contesto per funzionare.
     _databaseManager = DatabaseManager(context); // Istanziazione nel costruttore
   }
 
@@ -116,7 +126,13 @@ class _LoginState extends State<Login> {
       ),
       SizedBox(height: 10.0),
       ElevatedButton(
+        // async si usa per funzioni che devo implementare l'await, ovvero aspettare che l'azione sia completata
         onPressed: () async {
+          // la variabile form key mi serve per verificare lo stato dei form,
+          // in questo caso le casselle di edit text che assumono uno stato quando vengono compilate,
+          // questa variabile permette di recuperare lo stato di questi form in qualsiasi momento
+          // se i form hann uno stato , quindi non suono vuoti, vengono passate le infromazioni i email  e
+          // password all'interno della funzine verify login
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();
             await _databaseManager.verifyLogin(_email!, _password!);

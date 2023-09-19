@@ -21,10 +21,14 @@ class DatabaseManager {
   /// Se l'utente viene trovato e le credenziali corrispondono, naviga alla schermata principale.
   /// @param email L'email fornita dall'utente per il login.
   /// @param password La password fornita dall'utente per il login.
-
+// una sorta di promessa di una funzione di ritornare un
+// valore in un momento futuro in questo caso un <void>
   Future<void> verifyLogin(String email, String password) async {
     try {
       DatabaseEvent event = await _databaseReference.child('Utenti').once();
+      // final variabile che non puo essere riassegnata ad un altro valore
+      // dynamic indica che la variabile puo essre di qualsiasi tipo
+      // event.snapshot.value snapshot del databse firebase
       final dynamic data = event.snapshot.value;
 
       if (data != null && data is Map) {

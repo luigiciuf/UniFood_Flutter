@@ -5,6 +5,8 @@ import 'package:unifood/View/Login.dart';
 /// Definizione della classe Registrazione utilizzata per permettere la registrazione dell'utente.
 
 class Registrazione extends StatefulWidget {
+  //codice definisce un costruttore per la classe Registrazione che accetta un parametro opzionale
+  // key e passa quel parametro al costruttore della sua classe padre.
   const Registrazione({Key? key}) : super(key: key);
 
   @override
@@ -229,7 +231,6 @@ class _RegistrazioneState extends State<Registrazione> {
           ),
         ),
       ),
-
     );
   }
 }

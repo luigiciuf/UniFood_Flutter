@@ -27,10 +27,10 @@ Future<void> main() async {
   );
 
   runApp(MaterialApp(
-    home: Login(),
+    home: Login(),// prima schermata che si apre all'avvio dell'app  il Login
   ));
 }
-
+// classe main app serve per avviare l'app quindi viene dichiarata come stateless
 /// Classe principale dell'app
 class MainApp extends StatelessWidget {
   const MainApp({Key? key});
@@ -44,6 +44,7 @@ class MainApp extends StatelessWidget {
 }
 
 /// Classe per la schermata principale
+// my homepage essendo la schermata principale puo cambiare il suo stato per questo viene dichiarata come stateful
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -241,6 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         height: 100,
                         child: ListView(
+                          // larghezza che si adatta alla dimensione degli elementi presenti e al numero
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           children: List.generate(categorie.length, (index) {
